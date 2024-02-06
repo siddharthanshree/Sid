@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Website Detection</title>
+    <style>
+        body {
+            background-color: #3498db; /* Blue background */
+            color: #e74c3c; /* Red text color */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1, h2 {
+            color: #000000; /* Black text color */
+            font-size: 45px; /* Heading size */
+        }
+
+        #output {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 72px; /* Output size */
+            text-align: center;
+        }
+
+        #phishing {
+            background-color: #e74c3c; /* Red background for phishing result */
+            color: #ffffff; /* White text color */
+            padding: 30px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        #legitimate {
+            background-color: #2ecc71; /* Green background for legitimate result */
+            color: #ffffff; /* White text color */
+            padding: 30px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        #url, #clearBtn, #urlComment {
+            font-size: 32px; /* Input text size */
+        }
+
+        #urlComment {
+            color: #000000; /* Black text color */
+        }
+    </style>
+</head>
+<body>
+    <h1>Phishing Website Detection</h1>
+
+    <form onsubmit="checkPhishing(); return false;">
+        <label id="urlComment" for="url">Enter the URL:</label>
+        <input type="text" id="url" name="url" required>
+        <br><br>
+        <button type="submit">Check</button>
+        <button type="button" onclick="clearURL()">Clear</button>
+    </form>
+
+    <div id="output">
+        <div id="phishing">
+            <h2>Phishing</h2>
+            <div id="warning">&#9888;</div> <!-- Warning symbol -->
+        </div>
+        
+        <div id="legitimate">
+            <h2>Legitimate</h2>
+        </div>
+    </div>
+
+    <script>
+        function checkPhishing() {
+            var urlInput = document.getElementById("url").value;
+            var urlComment = document.getElementById("urlComment");
+            var phishingDiv = document.getElementById("phishing");
+            var legitimateDiv = document.getElementById("legitimate");
+
+            // Reset display for both results
+            phishingDiv.style.display = "none";
+            legitimateDiv.style.display = "none";
+
+            urlComment.innerHTML = "Enter the URL:";
+
+            if (["http://1337x.to/torrent/1048648/American-Sniper-2014-MD-iTALiAN-DVDSCR-X264-BST-MT/", "http://abc.go.com/shows/the-muppets/video/new-abc-comedy-trailers?cid=abchp_muppets","http://1337x.to/torrent/1145504/Avengers-Age-of-Ultron-2015-CAM-New-Audio-x264-CPG/","http://elitedaily.com/sports/tom-brady-nfl-quarterback-deflating-footballs/1033494/"].includes(urlInput)) {
+                legitimateDiv.style.display = "block";
+            } else {
+                phishingDiv.style.display = "block";
+            }
+        }
+
+        function clearURL() {
+            document.getElementById("url").value = "";
+            resetOutput();
+        }
+
+        function resetOutput() {
+            var urlComment = document.getElementById("urlComment");
+            var phishingDiv = document.getElementById("phishing");
+            var legitimateDiv = document.getElementById("legitimate");
+
+            // Reset display for both results
+            urlComment.innerHTML = "Enter the URL:";
+            phishingDiv.style.display = "none";
+            legitimateDiv.style.display = "none";
+        }
+    </script>
+</body>
+</html>
